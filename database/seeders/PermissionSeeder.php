@@ -36,7 +36,7 @@ class PermissionSeeder extends Seeder
                 }
             }
         }
-        $userAdmin = (new User)->where('email', 'targetit@targetit.com')->first();
+        $userAdmin = (new User)->where('email', 'admin@admin.com')->first();
         $userAdmin->roles()->attach($roleAdmin->id);
 
         $userUser = (new User)->where('email', 'user@user.com')->first();
