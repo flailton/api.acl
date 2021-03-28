@@ -90,4 +90,12 @@ class User extends Authenticatable implements JWTSubject
             'password.max' => 'A senha deve ter, no máximo, 16 caracteres!'
         ];
     }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

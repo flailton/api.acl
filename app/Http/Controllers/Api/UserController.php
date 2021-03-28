@@ -51,7 +51,7 @@ class UserController extends Controller
     public function show($id)
     {
         if (empty($user = $this->user->find($id))) {
-            return response()->json(['errors' => ['id' => ['O usuário informado não existe!']]], 404);
+            return response()->json(['errors' => ['O usuário informado não existe!']], 404);
         }
 
         return response()->json($user, 200);
@@ -67,7 +67,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         if (empty($user = $this->user->find($id))) {
-            return response()->json(['errors' => ['id' => ['Não foi possível realizar a atualização, porque o usuário informado não existe!']]], 404);
+            return response()->json(['errors' => ['Não foi possível realizar a atualização, porque o usuário informado não existe!']], 404);
         }
 
         $rules = [];
@@ -96,10 +96,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         if (empty($user = $this->user->find($id))) {
-            return response()->json(['errors' => ['id' => ['Não foi possível realizar a exclusão, porque o usuário informado não existe!']]], 404);
+            return response()->json(['errors' => ['Não foi possível realizar a exclusão, porque o usuário informado não existe!']], 404);
         }
 
         $user->delete();
-        return response()->json(['msg' => 'Usuário removido com sucesso!'], 200);
+        return response()->json(['message' => ['Usuário removido com sucesso!']], 200);
     }
 }

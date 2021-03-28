@@ -20,5 +20,14 @@ class UserSeeder extends Seeder
         $user->password = bcrypt('targetit@123');
         $user->phone = '+55 (071) 99191-9191';
         $user->save();
+
+        $user = new User();
+        $user->name = 'user';
+        $user->email = 'user@user.com';
+        $user->password = bcrypt('user@123');
+        $user->phone = '+55 (071) 99191-9191';
+        $user->save();
+
+
     }
 }

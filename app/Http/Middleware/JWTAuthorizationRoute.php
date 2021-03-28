@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
-use Tymon\JWTAuth\Exceptions\{TokenExpiredException, TokenInvalidException};
+use Tymon\JWTAuth\Exceptions\{TokenExpiredException, TokenInvalidException, JWTException};
 
 class JWTAuthorizationRoute extends BaseMiddleware
 {
@@ -21,16 +21,21 @@ class JWTAuthorizationRoute extends BaseMiddleware
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-        } catch (Exception $exception) {
+            session(['user' => $user]);
+        } catch (TokenInvalidException | TokenExpiredException | JWTException | Exception $ex) {
             #@TODO
-            if ($exception instanceof TokenInvalidException) {
-                return response()->json(['status' => 'O Token informado está inválido']);
-            } else if ($exception instanceof TokenExpiredException) {
-                return response()->json(['status' => 'O Token está expirado']);
-            } else {
-                return response()->json(['status' => 'O Token não foi informado']);
+            switch($ex){
+                case $ex instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException:
+                    return response()->json(['errors' => ['O Token informado está inválido']]);
+                case $ex instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException:
+                    return response()->json(['errors' => ['O Token está expirado']]);
+                case $ex instanceof \Tymon\JWTAuth\Exceptions\JWTException:
+                    return response()->json(['errors' => ['O token não foi identificado!']]);
+                default:
+                    return response()->json(['errors' => ['O Token não foi informado']]);
             }
         }
+
         return $next($request);
     }
 }

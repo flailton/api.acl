@@ -23,7 +23,7 @@ class AuthController extends Controller
             return self::respondWithToken($token);
         }
 
-        return response()->json(['error' => 'Senha ou E-mail incorretos!'], 401);
+        return response()->json(['errors' => ['Senha ou E-mail incorretos!']], 401);
     }
 
     /**
@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Logout realizado com sucesso!']);
+        return response()->json(['message' => ['Logout realizado com sucesso!']]);
     }
 
     /**
