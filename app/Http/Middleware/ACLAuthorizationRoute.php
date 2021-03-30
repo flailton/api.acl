@@ -21,8 +21,8 @@ class ACLAuthorizationRoute
         if (empty($roles = $user->roles)) {
             return response()->json(['errors' => ['Não foi possível obter as permissões do usuário!']]);
         }
-        
-        $user_id = $request->route()->parameters['user'];
+
+        $user_id = isset($request->route()->parameters['user']) ? $request->route()->parameters['user'] : 0;
         list($controller, $method) = explode('.', $request->route()->action['as']);
         $authorized = false;
         foreach ($roles as $role) {

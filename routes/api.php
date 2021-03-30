@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api;
 
 Route::post('auth/login', [Api\AuthController::class, 'login']);
-Route::post('auth/logout', [Api\AuthController::class, 'logout']);
+Route::post('auth/register', [Api\AuthController::class, 'register']);
 
 Route::group(['middleware' => ['auth.jwt', 'auth.acl']], function () {
     Route::apiResource('users', Api\UserController::class);
-    Route::apiResource('roles', Api\RoleController::class);
-    Route::apiResource('actions', Api\ActionController::class);
-    Route::apiResource('modules', Api\ModuleController::class);
-    Route::apiResource('permissions', Api\PermissionController::class);
+    Route::post('auth/logout', [Api\AuthController::class, 'logout']);
+    //Route::apiResource('roles', Api\RoleController::class);
+    //Route::apiResource('actions', Api\ActionController::class);
+    //Route::apiResource('modules', Api\ModuleController::class);
+    //Route::apiResource('permissions', Api\PermissionController::class);
 });

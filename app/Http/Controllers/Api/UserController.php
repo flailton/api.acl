@@ -36,9 +36,10 @@ class UserController extends Controller
         $request->validate($this->user->rules(), $this->user->feedback());
         
         $userRequest = $request->all();
+        
         $userRequest['password'] = bcrypt($userRequest['password']);
-
-        $user = $this->user->create($userRequest['password']);
+        
+        $user = $this->user->create($userRequest);
         return response()->json($user, 201);
     }
 
