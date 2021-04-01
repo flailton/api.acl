@@ -20,7 +20,9 @@ class ActionController extends Controller
      */
     public function index()
     {
-        $actions = $this->action->all();
+        $actions = $this->action
+            ->orderBy('name')
+            ->get();
 
         return response()->json($actions);
     }

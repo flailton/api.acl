@@ -38,6 +38,14 @@ class ActionSeeder extends Seeder
             [
                 'name' => 'Todas',
                 'method' => 'all'
+            ],
+            [
+                'name' => 'Vincular',
+                'method' => 'attach'
+            ],
+            [
+                'name' => 'Desvincular',
+                'method' => 'detach'
             ]
         ];
 

@@ -23,11 +23,16 @@ class ACLAuthorizationRoute
         }
 
         $user_id = isset($request->route()->parameters['user']) ? $request->route()->parameters['user'] : 0;
-        list($controller, $method) = explode('.', $request->route()->action['as']);
+
+        $routeController = explode('\\', $request->route()->action['controller']);
+
+        list($controller, $method) = explode('@', $routeController[array_key_last($routeController)]);
+        $controller = lcfirst(str_replace('Controller', '', $controller));
         $authorized = false;
+
         foreach ($roles as $role) {
-            if (!empty($authorization = $role->hasPermission($controller, $method, $user->id))) {
-                if($authorization['method'] === 'all' || $user->id === (int) $user_id){
+            if (!empty($authorization = $role->hasPermission($controller, $method))) {
+                if($authorization['method'] === 'all' || empty($user_id) || $user->id === (int) $user_id){
                     $authorized = true;
                     break;
                 } 
@@ -35,7 +40,7 @@ class ACLAuthorizationRoute
         }
 
         if (empty($authorized)) {
-            return response()->json(['errors' => ['O usuário não possui permissão!']]);
+            return response()->json(['errors' => ['O usuário não possui permissão!']], 405);
         }
 
         return $next($request);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -24,7 +25,7 @@ class AuthController extends Controller
             return self::respondWithToken($token);
         }
 
-        return response()->json(['errors' => ['Senha ou E-mail incorretos!']], 401);
+        return response()->json(['errors' => ['Senha ou E-mail incorretos!']], 400);
     }
 
     /**
@@ -39,7 +40,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => self::guard()->factory()->getTTL() * 1
+            'expires_in' => self::guard()->factory()->getTTL() * 1,
+            'user' => self::guard('api')->user()->id
         ]);
     }
 
@@ -50,7 +52,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
 
         return response()->json(['message' => ['Logout realizado com sucesso!']]);
     }

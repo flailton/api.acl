@@ -26,13 +26,13 @@ class JWTAuthorizationRoute extends BaseMiddleware
             #@TODO
             switch($ex){
                 case $ex instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException:
-                    return response()->json(['errors' => ['O Token informado está inválido']]);
+                    return response()->json(['errors' => ['O Token informado está inválido']], 401);
                 case $ex instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException:
-                    return response()->json(['errors' => ['O Token está expirado']]);
+                    return response()->json(['errors' => ['O Token está expirado']], 401);
                 case $ex instanceof \Tymon\JWTAuth\Exceptions\JWTException:
-                    return response()->json(['errors' => ['O token não foi identificado!']]);
+                    return response()->json(['errors' => ['O token não foi identificado!']], 401);
                 default:
-                    return response()->json(['errors' => ['O Token não foi informado']]);
+                    return response()->json(['errors' => ['O Token não foi informado']], 401);
             }
         }
 

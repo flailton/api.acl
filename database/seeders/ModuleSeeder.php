@@ -17,23 +17,23 @@ class ModuleSeeder extends Seeder
         $modules = [
             [
                 'name' => 'Usuários',
-                'controller' => 'users'
+                'controller' => 'user'
             ],
             [
                 'name' => 'Ações',
-                'controller' => 'actions'
+                'controller' => 'action'
             ],
             [
                 'name' => 'Funções',
-                'controller' => 'roles'
+                'controller' => 'role'
             ],
             [
                 'name' => 'Módulos',
-                'controller' => 'modules'
+                'controller' => 'module'
             ],
             [
                 'name' => 'Permissões',
-                'controller' => 'permissions'
+                'controller' => 'permission'
             ]
         ];
 

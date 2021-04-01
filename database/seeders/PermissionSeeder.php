@@ -31,7 +31,7 @@ class PermissionSeeder extends Seeder
                 $permission->save();
 
                 $roleAdmin->permissions()->attach($permission->id);
-                if($module->controller === 'users' && !in_array($action->method, ['all', 'destroy'])){
+                if($module->controller === 'users' && in_array($action->method, ['show', 'update'])){
                     $roleUser->permissions()->attach($permission->id);
                 }
             }

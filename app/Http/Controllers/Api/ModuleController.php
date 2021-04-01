@@ -20,7 +20,9 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules = $this->module->all();
+        $modules = $this->module
+        ->orderBy('name')
+        ->get();
 
         return response()->json($modules);
     }

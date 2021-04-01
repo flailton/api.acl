@@ -10,6 +10,32 @@ class Permission extends Model
     use HasFactory;
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    public function rules()
+    {
+        return [
+            'rule_id' => 'required',
+            'action_id' => 'required',
+            'module_id' => 'required'
+        ];
+    }
+
+    public function feedback()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório!'
+        ];
+    }
+
+    /**
      * The modules that belong to the permissions.
      */
     public function module()

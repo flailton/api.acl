@@ -10,6 +10,17 @@ class Role extends Model
     use HasFactory;
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'pivot'
+    ];
+
+    /**
      * Get the module actions for the role.
      */
     public function modules()
@@ -52,7 +63,6 @@ class Role extends Model
                 }
             }
         }
-
         return $return;
     }
 }
